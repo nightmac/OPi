@@ -93,9 +93,7 @@ sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
 sudo systemctl daemon-reload
 
-
 sudo usermod -a -G dialout orangepi
-
 
 #########################################################
 #############  ASTRONOMY SOFTWARE
@@ -117,22 +115,15 @@ Theme=breeze
 EOF
 ##################
 
-
 # Installs the General Star Catalog if you plan on using the simulators to test (If not, you can comment this line out with a #)
 display "Installing GSC"
 sudo apt -y install gsc
-
-# Installs the Astrometry.net package for supporting offline plate solves.  If you just want the online solver, comment this out with a #.
-display "Installing Astrometry.net"
-sudo apt -y install astrometry.net
-
 
 #########################################################
 #############  INDI WEB MANAGER App
 
 display "Installing INDI Web Manager App, indiweb, and python3"
 
-# This will install pip3 and python along with their headers for the next steps
 sudo apt -y install python3-pip
 sudo apt -y install python3-dev
 
@@ -148,20 +139,4 @@ sudo -H -u $SUDO_USER pip3 install indiweb
 
 #This will install the INDIWebManagerApp in the INDI PPA
 sudo apt -y install indiwebmanagerapp
-
-# This will make a link to start INDIWebManagerApp on the desktop
-##################
-sudo --preserve-env bash -c 'cat > $USERHOME/Desktop/INDIWebManagerApp.desktop' <<- EOF
-[Desktop Entry]
-Encoding=UTF-8
-Name=INDI Web Manager App
-Type=Application
-Exec=INDIWebManagerApp %U
-Icon=$(sudo -H -u $SUDO_USER python3 -m site --user-site)/indiweb/views/img/indi_logo.png
-Comment=Program to start and configure INDI WebManager
-EOF
-##################
-sudo chmod +x $USERHOME/Desktop/INDIWebManagerApp.desktop
-sudo chown $SUDO_USER:$SUDO_USER $USERHOME/Desktop/INDIWebManagerApp.desktop
-##################
 
