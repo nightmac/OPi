@@ -3,7 +3,7 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 if [ "$(whoami)" != "root" ]; then
-	display "Please run this script with sudo due to the fact that it must do a number of sudo tasks.  Exiting now."
+	echo "Please run this script with sudo due to the fact that it must do a number of sudo tasks.  Exiting now."
 	exit 1
 fi
 
@@ -17,14 +17,14 @@ sudo apt -y dist-upgrade
 sudo apt install -y xfce4-goodies indicator-multiload
 
 # Installs Synaptic Package Manager for easy software install/removal
-display "Installing Synaptic and apt-add-repository"
+echo "Installing Synaptic and apt-add-repository"
 sudo apt -y install synaptic software-properties-common
 
 
 #########################################################
 #############  File Sharing Configuration
 
-display "Setting up File Sharing"
+echo "Setting up File Sharing"
 
 # Installs samba so that you can share files to your other computer(s).
 sudo apt -y install samba samba-common-bin
@@ -99,7 +99,7 @@ sudo usermod -a -G dialout orangepi
 #############  ASTRONOMY SOFTWARE
 
 # Installs INDI, Kstars, and Ekos bleeding edge and debugging
-display "Installing INDI and KStars"
+echo "Installing INDI and KStars"
 sudo apt-add-repository ppa:mutlaqja/ppa -y
 sudo apt update
 sudo apt -y install indi-full kstars-bleeding
@@ -107,7 +107,7 @@ sudo apt -y install indi-full kstars-bleeding
 
 # Creates a config file for kde themes and icons which is missing on the Raspberry pi.
 # Note:  This is required for KStars to have the breeze icons.
-display "Creating KDE config file so KStars can have breeze icons."
+echo "Creating KDE config file so KStars can have breeze icons."
 ##################
 sudo --preserve-env bash -c 'cat > $USERHOME/.config/kdeglobals' <<- EOF
 [Icons]
@@ -116,13 +116,13 @@ EOF
 ##################
 
 # Installs the General Star Catalog if you plan on using the simulators to test (If not, you can comment this line out with a #)
-display "Installing GSC"
+echo "Installing GSC"
 sudo apt -y install gsc
 
 #########################################################
 #############  INDI WEB MANAGER App
 
-display "Installing INDI Web Manager App, indiweb, and python3"
+echo "Installing INDI Web Manager App, indiweb, and python3"
 
 sudo apt -y install python3-pip
 sudo apt -y install python3-dev
