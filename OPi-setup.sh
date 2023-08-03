@@ -14,7 +14,7 @@ sudo apt update
 sudo apt -y upgrade
 sudo apt -y dist-upgrade
 
-sudo apt install -y xfce4-goodies indicator-multiload
+#sudo apt install -y xfce4-goodies indicator-multiload
 
 # Installs Synaptic Package Manager for easy software install/removal
 echo "Installing Synaptic and apt-add-repository"
@@ -47,13 +47,13 @@ sudo --preserve-env bash -c 'cat > /etc/samba/smb.conf' <<- EOF
    pam password change = yes
    map to guest = bad user
    usershare allow guests = yes
-[orangepi]
-   comment = OrangePi Home
-   path = /home/orangepi
+[opi]
+   comment = OPi Home
+   path = /home/opi
    browseable = yes
    writeable = yes
    read only = no
-   valid users = orangepi
+   valid users = opi
 EOF
 ##################
 fi
@@ -61,8 +61,8 @@ fi
 # Adds yourself to the user group of who can use samba, but checks first if you are already in the list
 if [ -z "$(sudo pdbedit -L | grep $SUDO_USER)" ]
 then
-	sudo smbpasswd -a orangepi
-	sudo adduser orangepi sambashare
+	sudo smbpasswd -a opi
+	sudo adduser opi sambashare
 fi
 
 
@@ -93,7 +93,7 @@ sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
 sudo systemctl daemon-reload
 
-sudo usermod -a -G dialout orangepi
+sudo usermod -a -G dialout opi
 
 #########################################################
 #############  ASTRONOMY SOFTWARE
