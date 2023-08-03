@@ -137,6 +137,3 @@ sudo -H -u $SUDO_USER pip3 install wheel
 # This will install indiweb as the user
 sudo -H -u $SUDO_USER pip3 install indiweb
 
-#This will install the INDIWebManagerApp in the INDI PPA
-sudo apt -y install indiwebmanagerapp
-
