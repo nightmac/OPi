@@ -14,7 +14,7 @@ sudo apt update
 sudo apt -y upgrade
 sudo apt -y dist-upgrade
 
-#sudo apt install -y xfce4-goodies indicator-multiload
+sudo apt install -y xfce4-goodies indicator-multiload
 
 # Installs Synaptic Package Manager for easy software install/removal
 echo "Installing Synaptic and apt-add-repository"
@@ -104,18 +104,7 @@ sudo apt-add-repository ppa:mutlaqja/ppa -y
 sudo apt update
 sudo apt -y install indi-full kstars-bleeding
 
-
-# Creates a config file for kde themes and icons which is missing on the Raspberry pi.
-# Note:  This is required for KStars to have the breeze icons.
-echo "Creating KDE config file so KStars can have breeze icons."
-##################
-sudo --preserve-env bash -c 'cat > $USERHOME/.config/kdeglobals' <<- EOF
-[Icons]
-Theme=breeze
-EOF
-##################
-
-# Installs the General Star Catalog if you plan on using the simulators to test (If not, you can comment this line out with a #)
+# Installs the General Star Catalog
 echo "Installing GSC"
 sudo apt -y install gsc
 
