@@ -47,13 +47,13 @@ sudo --preserve-env bash -c 'cat > /etc/samba/smb.conf' <<- EOF
    pam password change = yes
    map to guest = bad user
    usershare allow guests = yes
-[opi]
-   comment = OPi Home
-   path = /home/opi
+[orangepi]
+   comment = OranePi Home
+   path = /home/orangepi
    browseable = yes
    writeable = yes
    read only = no
-   valid users = opi
+   valid users = orangepi
 EOF
 ##################
 fi
@@ -61,8 +61,8 @@ fi
 # Adds yourself to the user group of who can use samba, but checks first if you are already in the list
 if [ -z "$(sudo pdbedit -L | grep $SUDO_USER)" ]
 then
-	sudo smbpasswd -a opi
-	sudo adduser opi sambashare
+	sudo smbpasswd -a $SUDO_USER
+	sudo adduser $SUDO_USER sambashare
 fi
 
 
@@ -93,7 +93,7 @@ sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
 sudo systemctl daemon-reload
 
-sudo usermod -a -G dialout opi
+sudo usermod -a -G dialout $SUDO_USER
 
 #########################################################
 #############  ASTRONOMY SOFTWARE
