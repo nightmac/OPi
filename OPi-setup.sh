@@ -26,7 +26,6 @@ sudo apt -y install synaptic software-properties-common
 
 echo "Setting up File Sharing"
 
-# Installs samba so that you can share files to your other computer(s).
 sudo apt -y install samba samba-common-bin
 
 if [ ! -f /etc/samba/smb.conf ]
@@ -47,13 +46,13 @@ sudo --preserve-env bash -c 'cat > /etc/samba/smb.conf' <<- EOF
    pam password change = yes
    map to guest = bad user
    usershare allow guests = yes
-[orangepi]
-   comment = OranePi Home
-   path = /home/orangepi
+[$SUDO_USER]
+   comment = OrangePi Home
+   path = /home/$SUDO_USER
    browseable = yes
    writeable = yes
    read only = no
-   valid users = orangepi
+   valid users = $SUDO_USER
 EOF
 ##################
 fi
@@ -94,6 +93,7 @@ sudo systemctl start x11vnc.service
 sudo systemctl daemon-reload
 
 sudo usermod -a -G dialout $SUDO_USER
+sudo apt -y remove brltty
 
 #########################################################
 #############  ASTRONOMY SOFTWARE
@@ -108,10 +108,15 @@ sudo apt -y install indi-full kstars-bleeding
 echo "Installing GSC"
 sudo apt -y install gsc
 
-#########################################################
-#############  INDI WEB MANAGER App
+display "Installing PHD2"
+sudo apt-add-repository ppa:pch/phd2 -y
+sudo apt update
+sudo apt -y install phd2
 
-echo "Installing INDI Web Manager App, indiweb, and python3"
+#########################################################
+#############  Python3 & INDIWEB
+
+echo "Installing python3 and indiweb"
 
 sudo apt -y install python3-pip
 sudo apt -y install python3-dev
