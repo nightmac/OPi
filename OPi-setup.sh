@@ -17,7 +17,8 @@ sudo apt -y dist-upgrade
 echo "Installing Synaptic"
 sudo apt -y install synaptic software-properties-common
 
-sudo apt install -y xfce4-goodies indicator-multiload
+sudo apt -y install xfce4-goodies indicator-multiload
+
 
 #########################################################
 #############  SAMBA
@@ -88,8 +89,9 @@ sudo systemctl daemon-reload
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
 
+
 #########################################################
-#############  KStars INDI PHD2 Python3 INDIweb
+#############  KStars INDI PHD2 Python3 INDIweb SIRIL
 
 echo "Installing INDI and KStars"
 sudo apt-add-repository ppa:mutlaqja/ppa -y
@@ -114,3 +116,7 @@ sudo -H -u $SUDO_USER pip3 install wheel
 echo "Installing INDIweb"
 sudo -H -u $SUDO_USER pip3 install indiweb
 
+echo "Installing Siril"
+sudo add-apt-repository ppa:lock042/siril -y
+sudo apt update
+sudo apt -y install siril
