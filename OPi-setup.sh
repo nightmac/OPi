@@ -74,7 +74,7 @@ Description=Start x11vnc at startup.
 After=multi-user.target
 [Service]
 Type=simple
-ExecStart=/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth /etc/x11vnc.pass -rfbport 5900 -shared
+ExecStart=/usr/bin/x11vnc -auth guess -avahi -forever -loop -noxdamage -repeat -rfbauth /etc/x11vnc.pass -rfbport 5900 -shared
 [Install]
 WantedBy=multi-user.target
 EOF
