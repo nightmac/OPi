@@ -23,7 +23,6 @@ sudo apt install -y xfce4-goodies indicator-multiload
 #############  SAMBA
 
 echo "Setting up File Sharing"
-
 sudo apt -y install samba samba-common-bin
 
 if [ ! -f /etc/samba/smb.conf ]
@@ -67,8 +66,6 @@ fi
 sudo apt -y install x11vnc
 
 x11vnc -storepasswd /etc/x11vnc.pass
-
-# This will create the service file.
 
 ######################
 sudo --preserve-env bash -c 'cat > /lib/systemd/system/x11vnc.service' << EOF
@@ -114,6 +111,6 @@ sudo apt -y install python3-setuptools
 sudo -H -u $SUDO_USER pip3 install setuptools --upgrade
 sudo -H -u $SUDO_USER pip3 install wheel
 
-# This will install indiweb as the user
+echo "Installing INDIweb"
 sudo -H -u $SUDO_USER pip3 install indiweb
 
