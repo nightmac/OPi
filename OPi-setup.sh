@@ -19,7 +19,6 @@ sudo apt -y install synaptic software-properties-common
 
 sudo apt -y install xfce4-goodies indicator-multiload
 
-
 #########################################################
 #############  SAMBA
 
@@ -65,7 +64,6 @@ fi
 #############  x11VNC
 
 sudo apt -y install x11vnc
-
 x11vnc -storepasswd /etc/x11vnc.pass
 
 ######################
@@ -81,14 +79,12 @@ WantedBy=multi-user.target
 EOF
 ######################
 
-# This enables the Service so it runs at startup
 sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
 sudo systemctl daemon-reload
 
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
-
 
 #########################################################
 #############  KStars INDI PHD2 Python3 INDIweb SIRIL
