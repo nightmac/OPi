@@ -43,7 +43,6 @@ sudo --preserve-env bash -c 'cat > /etc/samba/smb.conf' <<- EOF
    map to guest = bad user
    usershare allow guests = yes
    fruit:copyfile = yes
-   vfs object = fruit streams_xattr
 [$SUDO_USER]
    comment = OrangePi Home
    path = /home/$SUDO_USER
