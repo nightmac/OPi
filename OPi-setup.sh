@@ -86,8 +86,8 @@ sudo systemctl daemon-reload
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
 
-echo "Installing ipheth-utils for iPhone Tethering"
-sudo apt -y install ipheth-utils libimobiledevice-dev libimobiledevice-utils
+echo "Installing iPhone USB Tethering"
+sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
 
 #########################################################
 #############  KStars INDI PHD2 Python3 INDIweb SIRIL
