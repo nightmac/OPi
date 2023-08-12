@@ -16,7 +16,6 @@ sudo apt -y dist-upgrade
 
 echo "Installing Synaptic"
 sudo apt -y install synaptic software-properties-common
-
 sudo apt -y install xfce4-goodies indicator-multiload
 
 #########################################################
