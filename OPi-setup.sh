@@ -43,6 +43,8 @@ sudo --preserve-env bash -c 'cat > /etc/samba/smb.conf' <<- EOF
    pam password change = yes
    map to guest = bad user
    usershare allow guests = yes
+   fruit:copyfile = yes
+   vfs object = fruit streams_xattr
 [$SUDO_USER]
    comment = OrangePi Home
    path = /home/$SUDO_USER
@@ -85,6 +87,9 @@ sudo systemctl daemon-reload
 
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
+
+echo "Installing ipheth-utils for iPhone Tethering"
+sudo apt -y install ipheth-utils libimobiledevice-dev libimobiledevice-utils
 
 #########################################################
 #############  KStars INDI PHD2 Python3 INDIweb SIRIL
