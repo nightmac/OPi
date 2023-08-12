@@ -19,7 +19,7 @@ sudo apt -y install synaptic software-properties-common
 sudo apt -y install xfce4-goodies indicator-multiload
 
 #########################################################
-#############  SAMBA
+#############  SAMBA file sharing
 
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
@@ -44,7 +44,7 @@ sudo --preserve-env bash -c 'cat > /etc/samba/smb.conf' <<- EOF
    usershare allow guests = yes
    fruit:copyfile = yes
 [$SUDO_USER]
-   comment = OrangePi Home
+   comment = $SUDO_USER Home
    path = /home/$SUDO_USER
    browseable = yes
    writeable = yes
@@ -79,9 +79,9 @@ WantedBy=multi-user.target
 EOF
 ######################
 
+sudo systemctl daemon-reload
 sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
-sudo systemctl daemon-reload
 
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
