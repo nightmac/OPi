@@ -83,6 +83,7 @@ sudo systemctl start x11vnc.service
 
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
+sudo apt -y remove modemmanager
 
 echo "Installing iPhone USB Tethering"
 sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
