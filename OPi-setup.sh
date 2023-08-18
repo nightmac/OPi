@@ -87,6 +87,11 @@ sudo apt -y remove modemmanager
 echo "Installing iPhone USB Tethering"
 sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
 
+echo "Installing Linux WiFi Hotspot"
+sudo add-apt-repository ppa:lakinduakash/lwh
+sudo apt update
+sudo apt -y install linux-wifi-hotspot
+
 #########################################################
 #############  KStars INDI PHD2 Python3 INDIweb SIRIL
 
