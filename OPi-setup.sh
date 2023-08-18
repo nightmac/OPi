@@ -7,7 +7,6 @@ fi
 
 export USERHOME=$(sudo -u $SUDO_USER -H bash -c 'echo $HOME')
 
-sudo apt -y remove unattended-upgrades
 sudo apt update
 sudo apt -y upgrade
 sudo apt -y dist-upgrade
