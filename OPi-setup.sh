@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$(whoami)" != "root" ]; then
-	echo "Please run this script with sudo due to the fact that it must do a number of sudo tasks.  Exiting now."
+	echo "This script needs to be run with sudo. Exiting now."
 	exit 1
 fi
 
