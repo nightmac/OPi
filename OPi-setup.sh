@@ -114,6 +114,10 @@ sudo apt -y install python3-setuptools
 sudo -H -u $SUDO_USER pip3 install setuptools --upgrade
 sudo -H -u $SUDO_USER pip3 install wheel
 
+echo "Installing pyindi-client"
+sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
+sudo -H -u $SUDO_USER pip3 install pyindi-client
+
 echo "Installing INDIweb"
 sudo -H -u $SUDO_USER pip3 install indiweb
 
