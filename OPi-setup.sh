@@ -92,7 +92,7 @@ sudo apt update
 sudo apt -y install linux-wifi-hotspot
 
 #########################################################
-#############  KStars INDI PHD2 Python3 INDIweb SIRIL
+#############  KStars INDI PHD2 Python3 INDIweb INDIGO Siril
 
 echo "Installing INDI and KStars"
 sudo apt-add-repository ppa:mutlaqja/ppa -y
@@ -120,6 +120,13 @@ sudo -H -u $SUDO_USER pip3 install pyindi-client
 
 echo "Installing INDIweb"
 sudo -H -u $SUDO_USER pip3 install indiweb
+
+echo "Installing Indigo"
+sudo sh -c "echo 'deb [trusted=yes] https://indigo-astronomy.github.io/indigo_ppa/ppa indigo main' > /etc/apt/sources.list.d/indigo.list"
+sudo apt update
+sudo apt -y install indigo
+sudo apt -y install ain-imager
+sudo apt -y install indigo-control-panel
 
 echo "Installing Siril"
 sudo add-apt-repository ppa:lock042/siril -y
