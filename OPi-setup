@@ -14,16 +14,9 @@ echo "Installing Synaptic"
 sudo apt -y install synaptic software-properties-common
 sudo apt -y install xfce4-goodies indicator-multiload
 
-#echo "Installing inputrc file"
-#sh -c "echo '\"\e[A\": history-search-backward' > ~/.inputrc"
-#sh -c "echo '\"\e[B\": history-search-forward' >> ~/.inputrc"
-#sh -c "echo 'set completion-ignore-case on' >> ~/.inputrc"
-#sh -c "echo 'set show-all-if-ambiguous on' >> ~/.inputrc"
-#sh -c "echo 'set mark-symlinked-directories on' >> ~/.inputrc"
-#sh -c "echo 'TAB: menu-complete' >> ~/.inputrc"
-
-#########################################################
-#############  SAMBA file sharing
+echo "Installing zshrc & inputrc dotfiles"
+cp .zshrc ~/.zshrc
+cp .inputrc ~/.inputrc
 
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
@@ -64,9 +57,7 @@ then
 	sudo adduser $SUDO_USER sambashare
 fi
 
-#########################################################
-#############  x11VNC
-
+echo "Installing x11vnc"
 sudo apt -y install x11vnc
 x11vnc -storepasswd /etc/x11vnc.pass
 
@@ -87,35 +78,39 @@ sudo systemctl daemon-reload
 sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
 
+
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
 sudo apt -y remove modemmanager
 sudo apt -y install avahi-daemon
 sudo apt -y install iperf3
 
+
 echo "Installing iPhone USB Tethering"
 sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
+
 
 echo "Installing Linux WiFi Hotspot"
 sudo add-apt-repository ppa:lakinduakash/lwh
 sudo apt update
 sudo apt -y install linux-wifi-hotspot
 
-#########################################################
-#############  KStars INDI PHD2 Python3 INDIweb INDIGO Siril
 
 echo "Installing INDI and KStars"
 sudo apt-add-repository ppa:mutlaqja/ppa -y
 sudo apt update
 sudo apt -y install indi-full kstars-bleeding
 
+
 echo "Installing GSC"
 sudo apt -y install gsc
+
 
 echo "Installing PHD2"
 sudo apt-add-repository ppa:pch/phd2 -y
 sudo apt update
 sudo apt -y install phd2
+
 
 echo "Installing python3"
 sudo apt -y install python3-pip
@@ -124,12 +119,15 @@ sudo apt -y install python3-setuptools
 sudo -H -u $SUDO_USER pip3 install setuptools --upgrade
 sudo -H -u $SUDO_USER pip3 install wheel
 
+
 echo "Installing pyindi-client"
 sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
 sudo -H -u $SUDO_USER pip3 install pyindi-client
 
+
 echo "Installing INDIweb"
 sudo -H -u $SUDO_USER pip3 install indiweb
+
 
 echo "Installing Indigo"
 sudo sh -c "echo 'deb [trusted=yes] https://indigo-astronomy.github.io/indigo_ppa/ppa indigo main' > /etc/apt/sources.list.d/indigo.list"
@@ -137,6 +135,7 @@ sudo apt update
 sudo apt -y install indigo
 sudo apt -y install ain-imager
 sudo apt -y install indigo-control-panel
+
 
 echo "Installing Siril"
 sudo add-apt-repository ppa:lock042/siril -y
