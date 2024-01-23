@@ -14,13 +14,13 @@ echo "Installing Synaptic"
 sudo apt -y install synaptic software-properties-common
 sudo apt -y install xfce4-goodies indicator-multiload
 
-echo "Installing inputrc file"
-sh -c "echo '\"\e[A\": history-search-backward' > ~/.inputrc"
-sh -c "echo '\"\e[B\": history-search-forward' >> ~/.inputrc"
-sh -c "echo 'set completion-ignore-case on' >> ~/.inputrc"
-sh -c "echo 'set show-all-if-ambiguous on' >> ~/.inputrc"
-sh -c "echo 'set mark-symlinked-directories on' >> ~/.inputrc"
-sh -c "echo 'TAB: menu-complete' >> ~/.inputrc"
+#echo "Installing inputrc file"
+#sh -c "echo '\"\e[A\": history-search-backward' > ~/.inputrc"
+#sh -c "echo '\"\e[B\": history-search-forward' >> ~/.inputrc"
+#sh -c "echo 'set completion-ignore-case on' >> ~/.inputrc"
+#sh -c "echo 'set show-all-if-ambiguous on' >> ~/.inputrc"
+#sh -c "echo 'set mark-symlinked-directories on' >> ~/.inputrc"
+#sh -c "echo 'TAB: menu-complete' >> ~/.inputrc"
 
 #########################################################
 #############  SAMBA file sharing
