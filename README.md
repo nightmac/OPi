@@ -1,4 +1,4 @@
-Script to install and configure this stuff on OrangePi 5:
+## Script to install and configure stuff on OrangePi 5:
 
 KStars
 INDI
