@@ -15,8 +15,8 @@ sudo apt -y install synaptic software-properties-common
 sudo apt -y install xfce4-goodies indicator-multiload
 
 echo "Installing zshrc & inputrc dotfiles"
-cp .zshrc ~/.zshrc
-cp .inputrc ~/.inputrc
+cp zshrc ~/.zshrc
+cp inputrc ~/.inputrc
 
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
