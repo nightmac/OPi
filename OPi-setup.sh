@@ -14,6 +14,12 @@ echo "Installing Synaptic"
 sudo apt -y install synaptic software-properties-common
 sudo apt -y install xfce4-goodies indicator-multiload
 
+
+echo "Installing Flatpak"
+sudo apt -y install flatpak
+sudo apt -y install gnome-software-plugin-flatpak
+
+
 echo "Installing zshrc & inputrc dotfiles"
 cp zshrc ~/.zshrc
 cp inputrc ~/.inputrc
@@ -68,7 +74,7 @@ Description=Start x11vnc at startup.
 After=multi-user.target
 [Service]
 Type=simple
-ExecStart=/usr/bin/x11vnc -auth guess -avahi -forever -geometry 1920x1080 -depth 24 -loop -noxdamage -repeat -rfbauth /etc/x11vnc.pass -rfbport 5900 -shared
+ExecStart=/usr/bin/x11vnc -auth guess -avahi -forever -loop -noxdamage -repeat -rfbauth /etc/x11vnc.pass -rfbport 5900 -shared
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -86,14 +92,16 @@ sudo apt -y install avahi-daemon
 sudo apt -y install iperf3
 
 
+echo "Installing python3"
+sudo apt -y install python3-pip
+sudo apt -y install python3-dev
+sudo apt -y install python3-setuptools
+sudo -H -u $SUDO_USER pip3 install setuptools --upgrade
+sudo -H -u $SUDO_USER pip3 install wheel
+
+
 echo "Installing iPhone USB Tethering"
 sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
-
-
-echo "Installing Linux WiFi Hotspot"
-sudo add-apt-repository ppa:lakinduakash/lwh
-sudo apt update
-sudo apt -y install linux-wifi-hotspot
 
 
 echo "Installing INDI and KStars"
@@ -110,14 +118,6 @@ echo "Installing PHD2"
 sudo apt-add-repository ppa:pch/phd2 -y
 sudo apt update
 sudo apt -y install phd2
-
-
-echo "Installing python3"
-sudo apt -y install python3-pip
-sudo apt -y install python3-dev
-sudo apt -y install python3-setuptools
-sudo -H -u $SUDO_USER pip3 install setuptools --upgrade
-sudo -H -u $SUDO_USER pip3 install wheel
 
 
 echo "Installing pyindi-client"
