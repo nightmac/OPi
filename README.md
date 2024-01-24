@@ -4,17 +4,18 @@
 
 - KStars
 - INDI
-- Indigo
+- INDIGO
+- INDIGO Control Panel
 - AIN Imager
-- Indigo Control Panel
 - PHD2
 - Siril
-- X11vnc
+- x11vnc
 - SMB file sharing
 - Avahi
 - iPhone USB Tethering
 - iPerf3
 - Synaptic package mangaer
+- Flatpak 
 - zshrc & inputrc dotfiles
 - Python3
 - Pyindi-client
@@ -29,4 +30,4 @@
 
 `chmod +x OPi-setup.sh`
 
-`./OPi-setup.sh`
+`sudo ./OPi-setup.sh`
