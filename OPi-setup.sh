@@ -24,6 +24,7 @@ echo "Installing zshrc & inputrc dotfiles"
 cp zshrc ~/.zshrc
 cp inputrc ~/.inputrc
 
+
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
 
