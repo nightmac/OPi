@@ -13,20 +13,17 @@ sudo apt update
 sudo apt -y full-upgrade
 sudo apt -y purge unattended-upgrades
 
-
 echo "Installing Synaptic"
 sudo apt -y install synaptic software-properties-common
-
 
 echo "Installing Flatpak"
 sudo apt -y install flatpak
 sudo apt -y install gnome-software-plugin-flatpak
-
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 echo "Installing zshrc & inputrc dotfiles"
 cp "$DIR/zshrc" $USERHOME/.zshrc
 cp "$DIR/inputrc" $USERHOME/.inputrc
-
 
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
@@ -34,7 +31,6 @@ sudo apt -y remove modemmanager
 sudo apt -y install avahi-daemon
 sudo apt -y install iperf3
 sudo apt -y install xfce4-goodies indicator-multiload
-
 
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
@@ -96,7 +92,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
 
-
 echo "Installing python3"
 sudo apt -y install python3-pip
 sudo apt -y install python3-dev
@@ -104,35 +99,25 @@ sudo apt -y install python3-setuptools
 sudo -H -u $SUDO_USER pip3 install setuptools --upgrade
 sudo -H -u $SUDO_USER pip3 install wheel
 
-
 echo "Installing iPhone USB Tethering"
 sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
-
 
 echo "Installing INDI and KStars"
 sudo apt-add-repository ppa:mutlaqja/ppa -y
 sudo apt update
 sudo apt -y install indi-full kstars-bleeding
 
-
-echo "Installing GSC"
-sudo apt -y install gsc
-
-
 echo "Installing PHD2"
 sudo apt-add-repository ppa:pch/phd2 -y
 sudo apt update
 sudo apt -y install phd2
 
-
 echo "Installing pyindi-client"
 sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
 sudo -H -u $SUDO_USER pip3 install pyindi-client
 
-
 echo "Installing INDIweb"
 sudo -H -u $SUDO_USER pip3 install indiweb
-
 
 echo "Installing Indigo"
 sudo sh -c "echo 'deb [trusted=yes] https://indigo-astronomy.github.io/indigo_ppa/ppa indigo main' > /etc/apt/sources.list.d/indigo.list"
@@ -140,7 +125,6 @@ sudo apt update
 sudo apt -y install indigo
 sudo apt -y install ain-imager
 sudo apt -y install indigo-control-panel
-
 
 echo "Installing Siril"
 sudo add-apt-repository ppa:lock042/siril -y
