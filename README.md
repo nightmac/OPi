@@ -28,6 +28,6 @@
 
 `git clone https://github.com/nightmac/OPi.git && cd OPi`
 
-`chmod +x OPi-setup.sh`
+`chmod +x OPi-setup`
 
-`sudo ./OPi-setup.sh`
+`sudo ./OPi-setup`
