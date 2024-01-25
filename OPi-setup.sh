@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 if [ "$(whoami)" != "root" ]; then
 	echo "This script needs to be run with sudo. Exiting now."
 	exit 1
@@ -9,10 +11,11 @@ export USERHOME=$(sudo -u $SUDO_USER -H bash -c 'echo $HOME')
 
 sudo apt update
 sudo apt -y full-upgrade
+sudo apt -y purge unattended-upgrades
+
 
 echo "Installing Synaptic"
 sudo apt -y install synaptic software-properties-common
-sudo apt -y install xfce4-goodies indicator-multiload
 
 
 echo "Installing Flatpak"
@@ -21,8 +24,16 @@ sudo apt -y install gnome-software-plugin-flatpak
 
 
 echo "Installing zshrc & inputrc dotfiles"
-cp zshrc ~/.zshrc
-cp inputrc ~/.inputrc
+cp "$DIR/zshrc" $USERHOME/.zshrc
+cp "$DIR/inputrc" $USERHOME/.inputrc
+
+
+sudo usermod -a -G dialout $SUDO_USER
+sudo apt -y remove brltty
+sudo apt -y remove modemmanager
+sudo apt -y install avahi-daemon
+sudo apt -y install iperf3
+sudo apt -y install xfce4-goodies indicator-multiload
 
 
 echo "Setting up File Sharing"
@@ -84,13 +95,6 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
-
-
-sudo usermod -a -G dialout $SUDO_USER
-sudo apt -y remove brltty
-sudo apt -y remove modemmanager
-sudo apt -y install avahi-daemon
-sudo apt -y install iperf3
 
 
 echo "Installing python3"
