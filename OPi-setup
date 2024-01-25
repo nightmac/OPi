@@ -31,6 +31,7 @@ sudo apt -y remove modemmanager
 sudo apt -y install avahi-daemon
 sudo apt -y install iperf3
 sudo apt -y install xfce4-goodies indicator-multiload
+sudo apt -y install gnome-keyring
 
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
