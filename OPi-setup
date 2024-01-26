@@ -21,9 +21,10 @@ sudo apt -y install flatpak
 sudo apt -y install gnome-software-plugin-flatpak
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-echo "Installing zshrc & inputrc dotfiles"
+echo "Installing dotfiles"
 cp "$DIR/zshrc" $USERHOME/.zshrc
 cp "$DIR/inputrc" $USERHOME/.inputrc
+sudo install -m 440 "$DIR/010_indigo-nopasswd" "${ROOTFS_DIR}/etc/sudoers.d/"
 
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
