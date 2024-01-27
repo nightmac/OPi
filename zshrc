@@ -2,7 +2,6 @@
 export PATH=$HOME/.local/bin:$PATH
 
 export ZSH=$HOME/.oh-my-zsh
-export ZSH_CACHE_DIR=$HOME/.oh-my-zsh/cache
 
 ZSH_THEME="robbyrussell"
 
