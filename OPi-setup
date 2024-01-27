@@ -111,11 +111,6 @@ sudo apt-add-repository ppa:mutlaqja/ppa -y
 sudo apt update
 sudo apt -y install indi-full kstars-bleeding
 
-echo "Installing PHD2"
-sudo apt-add-repository ppa:pch/phd2 -y
-sudo apt update
-sudo apt -y install phd2
-
 echo "Installing pyindi-client"
 sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
 sudo -H -u $SUDO_USER pip3 install pyindi-client
@@ -129,6 +124,11 @@ sudo apt update
 sudo apt -y install indigo
 sudo apt -y install ain-imager
 sudo apt -y install indigo-control-panel
+
+echo "Installing PHD2"
+sudo apt-add-repository ppa:pch/phd2 -y
+sudo apt update
+sudo apt -y install phd2
 
 echo "Installing Siril"
 sudo add-apt-repository ppa:lock042/siril -y
