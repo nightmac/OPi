@@ -113,7 +113,7 @@ sudo apt -y install indi-full kstars-bleeding
 
 echo "Installing pyindi-client"
 sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
-sudo -H -u $SUDO_USER pip3 install pyindi-client
+sudo apt -y install python3-indi-client
 
 echo "Installing INDIweb"
 sudo -H -u $SUDO_USER pip3 install indiweb
