@@ -25,6 +25,7 @@ echo "Installing dotfiles"
 cp "$DIR/zshrc" $USERHOME/.zshrc
 cp "$DIR/inputrc" $USERHOME/.inputrc
 sudo install -m 440 "$DIR/010_indigo-nopasswd" "${ROOTFS_DIR}/etc/sudoers.d/"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
