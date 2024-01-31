@@ -34,6 +34,7 @@ sudo apt -y install avahi-daemon
 sudo apt -y install iperf3
 sudo apt -y install xfce4-goodies indicator-multiload
 sudo apt -y install gnome-keyring
+sudo apt -y install breeze-icon-theme
 
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
@@ -101,8 +102,8 @@ echo "Installing python3"
 sudo apt -y install python3-pip
 sudo apt -y install python3-dev
 sudo apt -y install python3-setuptools
-sudo -H -u $SUDO_USER pip3 install setuptools --upgrade
-sudo -H -u $SUDO_USER pip3 install wheel
+sudo pip3 install setuptools --upgrade
+sudo pip3 install wheel
 
 echo "Installing iPhone USB Tethering"
 sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
@@ -117,7 +118,29 @@ sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
 sudo apt -y install python3-indi-client
 
 echo "Installing INDIweb"
-sudo -H -u $SUDO_USER pip3 install indiweb
+sudo pip3 install indiweb
+
+######################
+sudo --preserve-env bash -c 'cat > /etc/systemd/system/indiwebmanager.service' << EOF
+[Unit]
+Description=INDI Web Manager
+After=multi-user.target
+
+[Service]
+Type=idle
+# MUST SET YOUR USERNAME HERE.
+User=orangepi
+ExecStart=/usr/local/bin/indi-web -v
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+######################
+
+sudo systemctl daemon-reload
+sudo systemctl enable indiwebmanager.service
 
 echo "Installing Indigo"
 sudo sh -c "echo 'deb [trusted=yes] https://indigo-astronomy.github.io/indigo_ppa/ppa indigo main' > /etc/apt/sources.list.d/indigo.list"
