@@ -144,6 +144,7 @@ EOF
 
 sudo systemctl daemon-reload
 sudo systemctl enable indiwebmanager.service
+sudo systemctl start indiwebmanager.service
 
 echo "Installing Indigo"
 sudo sh -c "echo 'deb [trusted=yes] https://indigo-astronomy.github.io/indigo_ppa/ppa indigo main' > /etc/apt/sources.list.d/indigo.list"
