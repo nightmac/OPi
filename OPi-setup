@@ -147,6 +147,7 @@ sudo systemctl enable indiwebmanager.service
 sudo systemctl start indiwebmanager.service
 
 echo "Installing Indigo"
+sudo apt -y install build-essential autoconf autotools-dev libtool cmake libudev-dev libavahi-compat-libdnssd-dev libusb-1.0-0-dev fxload libcurl4-gnutls-dev libgphoto2-dev libz-dev git curl
 sudo sh -c "echo 'deb [trusted=yes] https://indigo-astronomy.github.io/indigo_ppa/ppa indigo main' > /etc/apt/sources.list.d/indigo.list"
 sudo apt update
 sudo apt -y install indigo
