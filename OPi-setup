@@ -132,7 +132,7 @@ After=multi-user.target
 [Service]
 Type=idle
 # MUST SET YOUR USERNAME HERE.
-User=orangepi
+User=$SUDO_USER
 ExecStart=/usr/local/bin/indi-web -v
 Restart=always
 RestartSec=5
