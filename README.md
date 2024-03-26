@@ -13,6 +13,7 @@
 - SMB file sharing
 - Avahi
 - iPhone USB Tethering
+- VirtualHere USB Server
 - iPerf3
 - Synaptic package mangaer
 - Flatpak 
