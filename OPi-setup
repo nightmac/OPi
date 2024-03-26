@@ -111,6 +111,9 @@ sudo pip3 install wheel
 echo "Installing iPhone USB Tethering"
 sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
 
+echo "Installing VirtualHere USB Server"
+curl https://raw.githubusercontent.com/virtualhere/script/main/install_server | sudo sh
+
 echo "Installing INDI and KStars"
 sudo apt-add-repository ppa:mutlaqja/ppa -y
 sudo apt update
