@@ -123,7 +123,7 @@ echo "Installing pyindi-client"
 sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
 sudo pip3 install pyindi-client
 
-echo "Installing INDIweb"
+echo "Installing INDI web manager"
 sudo pip3 install indiweb
 
 ######################
