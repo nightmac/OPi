@@ -12,6 +12,7 @@
 - x11vnc
 - SMB file sharing
 - Avahi
+- nss-mdns
 - iPhone USB Tethering
 - VirtualHere USB Server
 - iPerf3
