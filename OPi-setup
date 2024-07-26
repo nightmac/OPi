@@ -33,6 +33,7 @@ sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
 sudo apt -y remove modemmanager
 sudo apt -y install avahi-daemon
+sudo apt -y install libnss-mdns
 sudo apt -y install iperf3
 sudo apt -y install xfce4-goodies indicator-multiload
 sudo apt -y install gnome-keyring
