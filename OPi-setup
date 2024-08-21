@@ -80,7 +80,7 @@ fi
 
 echo "Installing x11vnc"
 sudo apt -y install x11vnc
-x11vnc -storepasswd /etc/x11vnc.pass
+sudo x11vnc -storepasswd /etc/x11vnc.pass
 
 ######################
 sudo --preserve-env bash -c 'cat > /lib/systemd/system/x11vnc.service' << EOF
