@@ -124,11 +124,11 @@ echo "Installing pyindi-client"
 sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
 sudo pip3 install pyindi-client
 
-echo "Installing INDI web manager"
-sudo pip3 install indiweb
-
 echo "Installing Astronomy.net"
 sudo apt -y install astrometry.net
+
+echo "Installing INDI web manager"
+sudo pip3 install indiweb
 
 ######################
 sudo --preserve-env bash -c 'cat > /etc/systemd/system/indiwebmanager.service' << EOF
