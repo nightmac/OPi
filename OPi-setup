@@ -115,6 +115,11 @@ sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-u
 echo "Installing VirtualHere USB Server"
 curl https://raw.githubusercontent.com/virtualhere/script/main/install_server | sudo sh
 
+echo "Installing uhubctl USB power control"
+cd ~/Desktop
+git clone https://github.com/mvp/uhubctl && cd uhubctl
+make && sudo make install
+
 echo "Installing INDI and KStars"
 sudo apt-add-repository ppa:mutlaqja/ppa -y
 sudo apt update
