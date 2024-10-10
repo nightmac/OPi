@@ -24,7 +24,7 @@ sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flat
 echo "Installing dotfiles"
 cp "$DIR/zshrc" $USERHOME/.zshrc
 cp "$DIR/inputrc" $USERHOME/.inputrc
-sudo install -m 440 "$DIR/010_indigo-nopasswd" "${ROOTFS_DIR}/etc/sudoers.d/"
+sudo install -m 440 "$DIR/010_orangepi-nopasswd" "${ROOTFS_DIR}/etc/sudoers.d/"
 
 echo "Installing Oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
