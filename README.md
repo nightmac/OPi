@@ -15,6 +15,7 @@
 - nss-mdns
 - iPhone USB Tethering
 - VirtualHere USB Server
+- uhubctl
 - iPerf3
 - Synaptic package mangaer
 - Flatpak 
@@ -28,7 +29,7 @@
 
 `cd ~/Desktop`
 
-`git clone https://github.com/nightmac/OPi.git && cd OPi`
+`git clone https://github.com/nightmac/opi && cd opi`
 
 `chmod +x OPi-setup`
 
