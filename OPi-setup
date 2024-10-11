@@ -171,6 +171,7 @@ echo "Installing PHD2"
 sudo apt-add-repository ppa:pch/phd2 -y
 sudo apt update
 sudo apt -y install phd2
+sudo apt -y install phdlogview
 
 echo "Installing Siril"
 sudo add-apt-repository ppa:lock042/siril -y
