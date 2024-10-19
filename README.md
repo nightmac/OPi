@@ -1,4 +1,4 @@
-# OPi5 setup script
+# OPi5/Max setup script
 
 ### Installs or configures
 
