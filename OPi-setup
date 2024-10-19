@@ -43,7 +43,6 @@ sudo apt -y install breeze-icon-theme
 #sudo add-apt-repository ppa:awesometic/ppa -y
 #sudo apt -y install realtek-r8152-dkms
 
-
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
 
