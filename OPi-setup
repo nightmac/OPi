@@ -39,6 +39,11 @@ sudo apt -y install xfce4-goodies indicator-multiload
 sudo apt -y install gnome-keyring
 sudo apt -y install breeze-icon-theme
 
+# Uncomment next lines to install realtek RTL8156 (r8152) USB 2.5G ethernet driver 
+#sudo add-apt-repository ppa:awesometic/ppa -y
+#sudo apt -y install realtek-r8152-dkms
+
+
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
 
