@@ -39,6 +39,34 @@ sudo apt -y install xfce4-goodies indicator-multiload
 sudo apt -y install gnome-keyring
 sudo apt -y install breeze-icon-theme
 
+echo "Configuring Ethernet"
+nmcli connection add type ethernet ifname eth0 con-name "Ethernet" autoconnect yes
+nmcli connection modify "Ethernet" connection.autoconnect-priority 2
+nmcli connection modify "Ethernet" ipv4.dhcp-timeout 5
+nmcli connection modify "Ethernet" ipv4.may-fail no
+nmcli connection modify "Ethernet" connection.autoconnect-retries 2
+nmcli connection modify "Ethernet" connection.auth-retries 2
+
+echo "Configuring Link Local Ethernet for direct connecting in the field"
+nmcli connection add type ethernet ifname eth0 con-name "Link Local Ethernet" autoconnect yes
+nmcli connection modify "Link Local Ethernet" connection.autoconnect-priority 1
+
+echo "Setting up Wi-Fi Hotspot"
+nmcli connection add type wifi ifname '*' con-name "HotSpot" autoconnect yes ssid "OPi5 Max"
+nmcli connection modify "HotSpot" 802-11-wireless.mode ap 802-11-wireless.band a ipv4.method shared
+nmcli connection modify "HotSpot" connection.autoconnect-priority -5
+
+##################
+sudo --preserve-env bash -c ' cat > /etc/NetworkManager/conf.d/wifi-enable-autohotspot.conf' <<- EOF
+[connection-wifi]
+match-device=interface-name:wlan0
+ipv4.dhcp-timeout=30
+ipv4.may-fail=no
+connection.auth-retries=2
+connection.autoconnect-retries=2
+EOF
+##################
+
 # Uncomment next lines to install realtek RTL8156 (r8152) USB 2.5G ethernet driver 
 #sudo add-apt-repository ppa:awesometic/ppa -y
 #sudo apt -y install realtek-r8152-dkms
