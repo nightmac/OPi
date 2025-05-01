@@ -47,9 +47,9 @@ nmcli connection modify "Ethernet" ipv4.may-fail no
 nmcli connection modify "Ethernet" connection.autoconnect-retries 2
 nmcli connection modify "Ethernet" connection.auth-retries 2
 
-echo "Configuring Link Local Ethernet for direct connecting in the field"
-nmcli connection add type ethernet ifname eth0 con-name "Link Local Ethernet" autoconnect yes
-nmcli connection modify "Link Local Ethernet" connection.autoconnect-priority 1
+#echo "Configuring Link Local Ethernet for direct connecting in the field"
+#nmcli connection add type ethernet ifname eth0 con-name "Link Local Ethernet" autoconnect yes
+#nmcli connection modify "Link Local Ethernet" connection.autoconnect-priority 1
 
 echo "Setting up Wi-Fi Hotspot"
 nmcli connection add type wifi ifname '*' con-name "HotSpot" autoconnect yes ssid "OPi5 Max"
