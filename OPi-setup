@@ -152,11 +152,17 @@ sudo apt -y install libusb-1.0-0-dev pkgconf
 cd ~/Desktop
 git clone https://github.com/mvp/uhubctl && cd uhubctl
 make && sudo make install
+cd ~/Desktop
 
 echo "Installing INDI and KStars"
-sudo apt-add-repository ppa:mutlaqja/ppa -y
-sudo apt update
-sudo apt -y install indi-full kstars-bleeding
+# Old way (PPA)
+#sudo apt-add-repository ppa:mutlaqja/ppa -y
+#sudo apt update
+#sudo apt -y install indi-full kstars-bleeding
+
+# New way (Flatpak)
+wget https://raw.githubusercontent.com/ikarustechnologies/indi-firmware/main/kstars.sh
+bash kstars.sh
 
 echo "Installing pyindi-client"
 sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
