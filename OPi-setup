@@ -148,7 +148,7 @@ echo "Installing VirtualHere USB Server"
 curl https://raw.githubusercontent.com/virtualhere/script/main/install_server | sudo sh
 
 echo "Installing uhubctl USB power control"
-sudo apt -y install libusb-1.0-0-dev
+sudo apt -y install libusb-1.0-0-dev pkgconf
 cd ~/Desktop
 git clone https://github.com/mvp/uhubctl && cd uhubctl
 make && sudo make install
