@@ -202,3 +202,5 @@ sudo apt update
 sudo apt -y install indigo
 sudo apt -y install ain-imager
 sudo apt -y install indigo-control-panel
+
+
