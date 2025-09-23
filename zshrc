@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:$PATH
+#export PATH=$HOME/.local/bin:$PATH
 
 export ZSH=$HOME/.oh-my-zsh
 
@@ -33,7 +33,7 @@ alias reboot='sudo reboot'
 alias shutdown='sudo shutdown now'
 alias trim='sudo fstrim -av'
 alias ulb='cd /usr/local/bin'
-alias update='flatpak update && sudo apt update && sudo apt -y full-upgrade'
+alias update='sudo apt update && sudo apt -y full-upgrade'
 alias yes='yes > /dev/null &'
 alias yes4='yes yes yes yes'
 alias yess='killall yes'
