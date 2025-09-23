@@ -23,8 +23,8 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 
 echo "Installing Oh-my-zsh & zshrc file"
 cp "$DIR/zshrc" $USERHOME/.zshrc
-sudo install -m 440 "$DIR/010_orangepi-nopasswd" "${ROOTFS_DIR}/etc/sudoers.d/"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+sudo install -m 440 "$DIR/010_orangepi-nopasswd" "${ROOTFS_DIR}/etc/sudoers.d/"
 
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
