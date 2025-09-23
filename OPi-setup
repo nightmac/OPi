@@ -54,7 +54,7 @@ nmcli connection add type ethernet ifname enP3p49s0 con-name "Link-Local" autoco
 nmcli connection modify "Link-Local" connection.autoconnect-priority 1
 
 echo "Setting up Wi-Fi Hotspot"
-nmcli connection add type wifi ifname '*' con-name "HotSpot" autoconnect no ssid "OPi5 Max"
+nmcli connection add type wifi ifname '*' con-name "HotSpot" autoconnect yes ssid "OPi5 Max"
 nmcli connection modify "HotSpot" 802-11-wireless.mode ap 802-11-wireless.band a ipv4.method shared
 nmcli connection modify "HotSpot" connection.autoconnect-priority -5
 
