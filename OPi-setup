@@ -154,12 +154,6 @@ make && sudo make install
 cd ../
 
 echo "Installing INDI and KStars"
-# Old way (PPA)
-#sudo apt-add-repository ppa:mutlaqja/ppa -y
-#sudo apt update
-#sudo apt -y install indi-full kstars-bleeding
-
-# New way (Flatpak)
 wget https://raw.githubusercontent.com/ikarustechnologies/indi-firmware/main/kstars.sh
 bash kstars.sh
 
@@ -196,6 +190,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable indiwebmanager.service
 sudo systemctl start indiwebmanager.service
 
+echo "Installing PHD2"
+sudo apt-add-repository ppa:pch/phd2 -y
+sudo apt update
+sudo apt -y install phd2 phdlogview
+
 echo "Installing Indigo"
 sudo apt -y install build-essential autoconf autotools-dev libtool cmake libudev-dev libavahi-compat-libdnssd-dev libusb-1.0-0-dev fxload libcurl4-gnutls-dev libgphoto2-dev libz-dev git curl
 sudo sh -c "echo 'deb [trusted=yes] https://indigo-astronomy.github.io/indigo_ppa/ppa indigo main' > /etc/apt/sources.list.d/indigo.list"
@@ -203,11 +202,3 @@ sudo apt update
 sudo apt -y install indigo
 sudo apt -y install ain-imager
 sudo apt -y install indigo-control-panel
-
-echo "Installing PHD2"
-sudo apt-add-repository ppa:pch/phd2 -y
-sudo apt update
-sudo apt -y install phd2 phdlogview
-
-echo "Installing Siril"
-flatpak install --user -y flathub org.siril.Siril
