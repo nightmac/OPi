@@ -13,18 +13,22 @@ sudo apt update
 sudo apt -y full-upgrade
 sudo apt -y purge unattended-upgrades
 
+
 echo "Installing Synaptic"
 sudo apt -y install synaptic software-properties-common
+
 
 echo "Installing Flatpak"
 sudo apt -y install flatpak
 sudo apt -y install gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
+
 echo "Installing Oh-my-zsh & zshrc file"
 cp "$DIR/zshrc" $USERHOME/.zshrc
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 sudo install -m 440 "$DIR/010_orangepi-nopasswd" "${ROOTFS_DIR}/etc/sudoers.d/"
+
 
 sudo usermod -a -G dialout $SUDO_USER
 sudo apt -y remove brltty
@@ -35,6 +39,7 @@ sudo apt -y install iperf3
 sudo apt -y install xfce4-goodies indicator-multiload
 sudo apt -y install gnome-keyring
 sudo apt -y install breeze-icon-theme
+
 
 echo "Setting up Ethernet for both DHCP and link-local"
 # This will make sure that network manager can manage whether the ethernet connection is on or off.
@@ -52,6 +57,7 @@ nmcli connection modify "Ethernet" connection.auth-retries 2
 
 nmcli connection add type ethernet ifname enP3p49s0 con-name "Link-Local" autoconnect yes ip4 10.0.0.60/24
 nmcli connection modify "Link-Local" connection.autoconnect-priority 1
+
 
 echo "Setting up Wi-Fi Hotspot"
 nmcli connection add type wifi ifname '*' con-name "HotSpot" autoconnect yes ssid "OPi5 Max"
@@ -116,6 +122,7 @@ EOF
 #sudo add-apt-repository ppa:awesometic/ppa -y
 #sudo apt -y install realtek-r8152-dkms
 
+
 echo "Setting up File Sharing"
 sudo apt -y install samba samba-common-bin
 
@@ -156,6 +163,7 @@ then
 	sudo adduser $SUDO_USER sambashare
 fi
 
+
 echo "Installing x11vnc"
 sudo apt -y install x11vnc
 sudo x11vnc -storepasswd /etc/x11vnc.pass
@@ -179,6 +187,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
 
+
 echo "Installing python3"
 sudo apt -y install python3-pip
 sudo apt -y install python3-dev
@@ -187,11 +196,14 @@ sudo apt -y install python-dev-is-python3
 sudo pip3 install setuptools --upgrade
 sudo pip3 install wheel
 
+
 echo "Installing iPhone USB Tethering"
 sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
 
+
 echo "Installing VirtualHere USB Server"
 curl https://raw.githubusercontent.com/virtualhere/script/main/install_server | sudo sh
+
 
 echo "Installing uhubctl USB power control"
 sudo apt -y install libusb-1.0-0-dev pkgconf
@@ -199,16 +211,20 @@ git clone https://github.com/mvp/uhubctl && cd uhubctl
 make && sudo make install
 cd ../
 
+
 echo "Installing INDI and KStars"
 wget https://raw.githubusercontent.com/ikarustechnologies/indi-firmware/main/kstars.sh
 bash kstars.sh
+
 
 echo "Installing pyindi-client"
 sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
 sudo apt -y install python3-indi-client
 
+
 echo "Installing Astronomy.net"
 sudo apt -y install astrometry.net
+
 
 echo "Installing INDI web manager"
 sudo pip3 install indiweb
@@ -236,10 +252,12 @@ sudo systemctl daemon-reload
 sudo systemctl enable indiwebmanager.service
 sudo systemctl start indiwebmanager.service
 
+
 echo "Installing PHD2"
 sudo apt-add-repository ppa:pch/phd2 -y
 sudo apt update
 sudo apt -y install phd2 phdlogview
+
 
 echo "Installing Indigo"
 sudo apt -y install build-essential autoconf autotools-dev libtool cmake libudev-dev libavahi-compat-libdnssd-dev libusb-1.0-0-dev fxload libcurl4-gnutls-dev libgphoto2-dev libz-dev git curl
