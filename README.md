@@ -8,7 +8,6 @@
 - INDIGO Control Panel
 - AIN Imager
 - PHD2
-- Siril
 - x11vnc
 - SMB file sharing
 - Avahi
@@ -19,7 +18,7 @@
 - iPerf3
 - Synaptic package mangaer
 - Flatpak 
-- zshrc & inputrc dotfiles
+- Oh-my-zsh & zshrc file
 - Python3
 - Pyindi-client
 - other misc things
