@@ -210,6 +210,4 @@ sudo apt update
 sudo apt -y install phd2 phdlogview
 
 echo "Installing Siril"
-sudo add-apt-repository ppa:lock042/siril -y
-sudo apt update
-sudo apt -y install siril
+flatpak install --user -y flathub org.siril.Siril
