@@ -37,10 +37,8 @@ sudo apt -y install gnome-keyring
 sudo apt -y install breeze-icon-theme
 
 
-echo "Configuring Network Manager"
-# This will set up your Pi to have access to internet with wifi, ethernet with DHCP, and ethernet with direct connection
-display "Setting up Ethernet for both link-local and DHCP"
-if [ -z "$(ls /etc/NetworkManager/system-connections/ | grep Link\ Local\ Ethernet)" ]
+echo "Setting up Ethernet for both DHCP and link-local"
+if [ -z "$(ls /etc/NetworkManager/system-connections/ | grep Link-Local)" ]
 then
 	read -p "Do you want to give your pi a static ip address so that you can connect to it in the observing field with no router or wifi and just an ethernet cable (y/n)? " useStaticIP
 	if [ "$useStaticIP" == "y" ]
@@ -83,10 +81,10 @@ EOF
 			echo "IP Address invalid, the static IP will not be set up.  Please configure Network Manager later or run the script again."
 		fi
 	else
-		display "Leaving your IP address to be assigned only by dhcp.  Note that you will always need either a router or wifi network to connect to your pi."
+		echo "Leaving your IP address to be assigned only by dhcp.  Note that you will always need either a router or wifi network to connect to your pi."
 	fi
 else
-	display "This computer already has been assigned a static ip address.  If you need to edit that, please edit the Link Local and Wired DHCP connections in Network Manager or delete them and run the script again."
+	echo "This computer already has been assigned a static ip address.  If you need to edit that, please edit the Link-Local and Ethernet in Network Manager or delete them and run the script again."
 fi
 
 echo "Setting up Wi-Fi Hotspot"
