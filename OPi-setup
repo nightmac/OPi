@@ -36,7 +36,6 @@ sudo apt -y install xfce4-goodies indicator-multiload
 sudo apt -y install gnome-keyring
 sudo apt -y install breeze-icon-theme
 
-
 echo "Setting up Ethernet for both DHCP and link-local"
 # This will make sure that network manager can manage whether the ethernet connection is on or off.
 if [ -n "$(grep 'managed=false' /etc/NetworkManager/NetworkManager.conf)" ]
