@@ -44,14 +44,14 @@ then
 	sed -i "s/managed=false/managed=true/g" /etc/NetworkManager/NetworkManager.conf
 fi
 
-nmcli connection add type ethernet ifname eth0 con-name "Ethernet" autoconnect yes
+nmcli connection add type ethernet ifname enP3p49s0 con-name "Ethernet" autoconnect yes
 nmcli connection modify "Ethernet" connection.autoconnect-priority 2
 nmcli connection modify "Ethernet" ipv4.dhcp-timeout 5
 nmcli connection modify "Ethernet" ipv4.may-fail no
 nmcli connection modify "Ethernet" connection.autoconnect-retries 2
 nmcli connection modify "Ethernet" connection.auth-retries 2
 
-nmcli connection add type ethernet ifname eth0 con-name "Link-Local" autoconnect yes ip4 10.0.0.60/24
+nmcli connection add type ethernet ifname enP3p49s0 con-name "Link-Local" autoconnect yes ip4 10.0.0.60/24
 nmcli connection modify "Link-Local" connection.autoconnect-priority 1
 
 # This will make sure /etc/network/interfaces does not interfere
@@ -66,7 +66,6 @@ auto lo
 iface lo inet loopback
 EOF
 ##################
-
 
 echo "Setting up Wi-Fi Hotspot"
 nmcli connection add type wifi ifname '*' con-name "HotSpot" autoconnect no ssid "OPi5 Max"
