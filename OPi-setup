@@ -69,6 +69,33 @@ connection.autoconnect-retries=2
 EOF
 ##################
 
+# This dispatcher script makes Wi-Fi mutually exclusive with wired networking. When a wired interface is connected, 
+# Wi-Fi will be turned off. When the wired interface is disconnected, Wi-Fi will be turned back on. 
+##################
+sudo --preserve-env bash -c ' cat > /etc/NetworkManager/dispatcher.d/70-wifi-wired-toggle.sh' <<- EOF
+#!/bin/bash
+export LC_ALL=C
+
+enable_disable_wifi ()
+{
+    result=$(nmcli dev | grep "ethernet" | grep -w "connected")
+    if [ -n "$result" ]; then
+        nmcli radio wifi off
+    else
+        nmcli radio wifi on
+    fi
+}
+
+if [ "$2" = "up" ]; then
+    enable_disable_wifi
+fi
+
+if [ "$2" = "down" ]; then
+    enable_disable_wifi
+fi
+EOF
+##################
+
 # This will make sure /etc/network/interfaces does not interfere
 ##################
 sudo --preserve-env bash -c 'cat > /etc/network/interfaces' <<- EOF
@@ -92,6 +119,7 @@ sudo apt -y install samba samba-common-bin
 if [ ! -f /etc/samba/smb.conf ]
 then
 	sudo mkdir -p /etc/samba/
+
 ##################
 sudo --preserve-env bash -c 'cat > /etc/samba/smb.conf' <<- EOF
 [global]
