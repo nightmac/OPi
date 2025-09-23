@@ -53,19 +53,6 @@ nmcli connection modify "Ethernet" connection.auth-retries 2
 nmcli connection add type ethernet ifname enP3p49s0 con-name "Link-Local" autoconnect yes ip4 10.0.0.60/24
 nmcli connection modify "Link-Local" connection.autoconnect-priority 1
 
-# This will make sure /etc/network/interfaces does not interfere
-##################
-sudo --preserve-env bash -c 'cat > /etc/network/interfaces' <<- EOF
-# interfaces(5) file used by ifup(8) and ifdown(8)
-# Include files from /etc/network/interfaces.d:
-source /etc/network/interfaces.d/*
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-EOF
-##################
-
 echo "Setting up Wi-Fi Hotspot"
 nmcli connection add type wifi ifname '*' con-name "HotSpot" autoconnect no ssid "OPi5 Max"
 nmcli connection modify "HotSpot" 802-11-wireless.mode ap 802-11-wireless.band a ipv4.method shared
@@ -79,6 +66,19 @@ ipv4.dhcp-timeout=30
 ipv4.may-fail=no
 connection.auth-retries=2
 connection.autoconnect-retries=2
+EOF
+##################
+
+# This will make sure /etc/network/interfaces does not interfere
+##################
+sudo --preserve-env bash -c 'cat > /etc/network/interfaces' <<- EOF
+# interfaces(5) file used by ifup(8) and ifdown(8)
+# Include files from /etc/network/interfaces.d:
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
 EOF
 ##################
 
