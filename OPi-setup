@@ -36,17 +36,58 @@ sudo apt -y install xfce4-goodies indicator-multiload
 sudo apt -y install gnome-keyring
 sudo apt -y install breeze-icon-theme
 
-echo "Configuring Ethernet"
-nmcli connection add type ethernet ifname eth0 con-name "Ethernet" autoconnect yes
-nmcli connection modify "Ethernet" connection.autoconnect-priority 2
-nmcli connection modify "Ethernet" ipv4.dhcp-timeout 5
-nmcli connection modify "Ethernet" ipv4.may-fail no
-nmcli connection modify "Ethernet" connection.autoconnect-retries 2
-nmcli connection modify "Ethernet" connection.auth-retries 2
 
-#echo "Configuring Link Local Ethernet for direct connecting in the field"
-#nmcli connection add type ethernet ifname eth0 con-name "Link Local Ethernet" autoconnect yes
-#nmcli connection modify "Link Local Ethernet" connection.autoconnect-priority 1
+echo "Configuring Network Manager"
+# This will set up your Pi to have access to internet with wifi, ethernet with DHCP, and ethernet with direct connection
+display "Setting up Ethernet for both link-local and DHCP"
+if [ -z "$(ls /etc/NetworkManager/system-connections/ | grep Link\ Local\ Ethernet)" ]
+then
+	read -p "Do you want to give your pi a static ip address so that you can connect to it in the observing field with no router or wifi and just an ethernet cable (y/n)? " useStaticIP
+	if [ "$useStaticIP" == "y" ]
+	then
+		read -p "Please enter the IP address you would prefer.  Please make sure that the first two numbers match your client computer's self assigned IP.  For Example mine is: 169.254.0.5 ? " IP
+		if [[ "$IP" =~ ^(([1-9]?[0-9]|1[0-9][0-9]|2([0-4][0-9]|5[0-5]))\.){3}([1-9]?[0-9]|1[0-9][0-9]|2([0-4][0-9]|5[0-5]))$ ]] # Note that this formula came from Jon in the thread: https://stackoverflow.com/questions/13777387/check-for-ip-validity
+		then
+			echo "IP Address is in correct format, proceeding"
+			
+			# Changes managed=false to true so that network manager can manage whether the ethernet connection is on or off.
+			if [ -n "$(grep 'managed=false' /etc/NetworkManager/NetworkManager.conf)" ]
+			then
+				sed -i "s/managed=false/managed=true/g" /etc/NetworkManager/NetworkManager.conf
+			fi
+
+			nmcli connection add type ethernet ifname eth0 con-name "Ethernet" autoconnect yes
+			nmcli connection modify "Ethernet" connection.autoconnect-priority 2	# Higher priority. It tries DHCP first and then switches to Link-Local as a backup
+			nmcli connection modify "Ethernet" ipv4.dhcp-timeout 5					# Short DHCP timeout so it doesnt take forever to switch
+			nmcli connection modify "Ethernet" ipv4.may-fail no
+			nmcli connection modify "Ethernet" connection.autoconnect-retries 2
+			nmcli connection modify "Ethernet" connection.auth-retries 2
+
+			nmcli connection add type ethernet ifname eth0 con-name "Link-Local" autoconnect yes ip4 $IP/24
+			nmcli connection modify "Link-Local" connection.autoconnect-priority 1	# Lower priority backup connection
+
+# This will make sure /etc/network/interfaces does not interfere
+##################
+sudo --preserve-env bash -c 'cat > /etc/network/interfaces' <<- EOF
+# interfaces(5) file used by ifup(8) and ifdown(8)
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+EOF
+##################
+
+		else
+			echo "IP Address invalid, the static IP will not be set up.  Please configure Network Manager later or run the script again."
+		fi
+	else
+		display "Leaving your IP address to be assigned only by dhcp.  Note that you will always need either a router or wifi network to connect to your pi."
+	fi
+else
+	display "This computer already has been assigned a static ip address.  If you need to edit that, please edit the Link Local and Wired DHCP connections in Network Manager or delete them and run the script again."
+fi
 
 echo "Setting up Wi-Fi Hotspot"
 nmcli connection add type wifi ifname '*' con-name "HotSpot" autoconnect no ssid "OPi5 Max"
