@@ -149,10 +149,9 @@ curl https://raw.githubusercontent.com/virtualhere/script/main/install_server | 
 
 echo "Installing uhubctl USB power control"
 sudo apt -y install libusb-1.0-0-dev pkgconf
-cd ~/Desktop
 git clone https://github.com/mvp/uhubctl && cd uhubctl
 make && sudo make install
-cd ~/Desktop
+cd ../
 
 echo "Installing INDI and KStars"
 # Old way (PPA)
