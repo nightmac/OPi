@@ -69,6 +69,7 @@ connection.autoconnect-retries=2
 EOF
 ##################
 
+
 # This dispatcher script makes Wi-Fi mutually exclusive with wired networking. When a wired interface is connected, 
 # Wi-Fi will be turned off. When the wired interface is disconnected, Wi-Fi will be turned back on. 
 ##################
@@ -96,6 +97,7 @@ fi
 EOF
 ##################
 
+
 # This will make sure /etc/network/interfaces does not interfere
 ##################
 sudo --preserve-env bash -c 'cat > /etc/network/interfaces' <<- EOF
@@ -108,6 +110,7 @@ auto lo
 iface lo inet loopback
 EOF
 ##################
+
 
 # Uncomment next lines to install realtek RTL8156 (r8152) USB 2.5G ethernet driver 
 #sudo add-apt-repository ppa:awesometic/ppa -y
