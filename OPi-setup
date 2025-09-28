@@ -185,6 +185,9 @@ cd ../
 
 
 echo "Installing INDI and KStars"
+sudo apt-add-repository ppa:mutlaqja/ppa -y
+sudo apt update
+#sudo apt -y install indi-full kstars-bleeding
 wget https://raw.githubusercontent.com/ikarustechnologies/indi-firmware/main/kstars.sh
 bash kstars.sh
 
