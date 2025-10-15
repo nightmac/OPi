@@ -21,6 +21,7 @@
 - Oh-my-zsh & zshrc file
 - Python3
 - Pyindi-client
+- Install Video Dummy driver (optional)
 - other misc things
 
 
