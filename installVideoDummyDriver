@@ -35,7 +35,7 @@ sudo apt -y install xserver-xorg-video-dummy
 
 # This will create the configuration file needed to support the dummy driver.
 ##################
-sudo --preserve-env bash -c 'cat > /etc/X11/xorg.conf.d/10-videodummy.conf' <<- EOF
+sudo --preserve-env bash -c 'cat > /etc/X11/xorg.conf.d/10-videodummy.conf' << EOF
 Section "Monitor"
     Identifier "Monitor0"
     HorizSync 22 - 83
