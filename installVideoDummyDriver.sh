@@ -24,7 +24,7 @@ then
 		if [ "$uninstall" == "y" ]
 		then
 			echo "Removing the dummy driver and the conf file as you requested."
-			sudo apt-get -y remove xserver-xorg-video-dummy
+			sudo apt -y remove xserver-xorg-video-dummy
 			sudo rm /etc/X11/xorg.conf.d/10-videodummy.conf
 		fi
 		echo "Script Execution Complete.  The Video Dummy Driver is removed.  You should restart your computer."
