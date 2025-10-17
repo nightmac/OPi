@@ -25,9 +25,9 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 
 
 echo "Installing Oh-my-zsh & zshrc file"
+sudo install -m 440 "$DIR/010_orangepi-nopasswd" "${ROOTFS_DIR}/etc/sudoers.d/"
 cp "$DIR/zshrc" $USERHOME/.zshrc
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc
-sudo install -m 440 "$DIR/010_orangepi-nopasswd" "${ROOTFS_DIR}/etc/sudoers.d/"
 
 
 sudo usermod -a -G dialout $SUDO_USER
@@ -39,60 +39,6 @@ sudo apt -y install iperf3
 sudo apt -y install xfce4-goodies indicator-multiload
 sudo apt -y install gnome-keyring
 sudo apt -y install breeze-icon-theme
-
-
-echo "Setting up Ethernet for both DHCP and link-local"
-# This will make sure that network manager can manage whether the ethernet connection is on or off.
-if [ -n "$(grep 'managed=false' /etc/NetworkManager/NetworkManager.conf)" ]
-then
-	sed -i "s/managed=false/managed=true/g" /etc/NetworkManager/NetworkManager.conf
-fi
-
-nmcli connection add type ethernet ifname enP3p49s0 con-name "Ethernet" autoconnect yes
-nmcli connection modify "Ethernet" connection.autoconnect-priority 2
-nmcli connection modify "Ethernet" ipv4.dhcp-timeout 5
-nmcli connection modify "Ethernet" ipv4.may-fail no
-nmcli connection modify "Ethernet" connection.autoconnect-retries 2
-nmcli connection modify "Ethernet" connection.auth-retries 2
-
-nmcli connection add type ethernet ifname enP3p49s0 con-name "Link-Local" autoconnect yes ip4 10.0.0.60/24
-nmcli connection modify "Link-Local" connection.autoconnect-priority 1
-
-
-echo "Setting up Wi-Fi Hotspot"
-nmcli connection add type wifi ifname '*' con-name "HotSpot" autoconnect yes ssid "OPi5 Max"
-nmcli connection modify "HotSpot" 802-11-wireless.mode ap 802-11-wireless.band a ipv4.method shared
-nmcli connection modify "HotSpot" connection.autoconnect-priority -5
-
-##################
-sudo --preserve-env bash -c ' cat > /etc/NetworkManager/conf.d/wifi-enable-autohotspot.conf' <<- EOF
-[connection-wifi]
-match-device=interface-name:wlan0
-ipv4.dhcp-timeout=30
-ipv4.may-fail=no
-connection.auth-retries=2
-connection.autoconnect-retries=2
-EOF
-##################
-
-
-# This will make sure /etc/network/interfaces does not interfere
-##################
-sudo --preserve-env bash -c 'cat > /etc/network/interfaces' <<- EOF
-# interfaces(5) file used by ifup(8) and ifdown(8)
-# Include files from /etc/network/interfaces.d:
-source /etc/network/interfaces.d/*
-
-# The loopback network interface
-auto lo
-iface lo inet loopback
-EOF
-##################
-
-
-# Uncomment next lines to install realtek RTL8156 (r8152) USB 2.5G ethernet driver 
-#sudo add-apt-repository ppa:awesometic/ppa -y
-#sudo apt -y install realtek-r8152-dkms
 
 
 echo "Setting up File Sharing"
