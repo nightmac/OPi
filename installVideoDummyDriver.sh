@@ -52,7 +52,7 @@ Section "Device"
     Option "NoDDC" "true"
     Option "IgnoreEDID" "true"
     Driver "dummy"
-    VideoRam 16384
+    VideoRam 256000
 EndSection
 
 Section "Screen"
