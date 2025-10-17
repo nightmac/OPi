@@ -72,7 +72,8 @@ Section "Screen"
     	Depth 24
     	Modes "1024x768" "1152x864" "1280x800" "1280x1024" "1360x1024" "1440x900" "1600x1200" "1680x1050" "1920x1080" "1920x1200"
     EndSubSection
-EndSectionEOF
+EndSection
+EOF
 ##################
 
 echo "Script Execution Complete.  The Video Dummy Driver is set up.  You should restart your computer and log in via VNC."
