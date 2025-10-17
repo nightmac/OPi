@@ -1,14 +1,12 @@
 #!/bin/bash
 
-
 if [ "$(whoami)" != "root" ]; then
-	echo "Please run this script with sudo due to the fact that it must do a number of sudo tasks.  Exiting now."
+	echo "This script needs to be run with sudo. Exiting now."
 	exit 1
 fi
 
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "This script is for devices that need the XOrg Video Dummy Driver to show up properly in VNC."
-echo "Note that if you install the dummy driver, VNC will then work, but HDMI will no longer work since it is using the dummy driver instead"
 echo "If the script has already run, instead of setting it up, it will uninstall the dummy driver and remove the conf file."
 
 read -p "Do you wish to run this script? (y/n)" runscript
@@ -23,7 +21,7 @@ then
 		read -p "The script was already run.  Do you wish to uninstall? (y/n)" uninstall
 		if [ "$uninstall" == "y" ]
 		then
-			echo "Removing the dummy driver and the conf file as you requested."
+			echo "Removing the dummy driver and the conf file."
 			sudo apt -y remove xserver-xorg-video-dummy
 			sudo rm /etc/X11/xorg.conf.d/10-videodummy.conf
 		fi
@@ -36,9 +34,8 @@ fi
 sudo apt -y install xserver-xorg-video-dummy
 
 # This will create the configuration file needed to support the dummy driver.
-# Note:  Thanks to https://ubuntuforums.org/showthread.php?t=1297815&page=3 for all the modes.
 ##################
-sudo bash -c 'cat > /etc/X11/xorg.conf.d/10-videodummy.conf' <<- EOF
+sudo --preserve-env bash -c 'cat > /etc/X11/xorg.conf.d/10-videodummy.conf' <<- EOF
 Section "Monitor"
     Identifier "Monitor0"
     HorizSync 22 - 83
