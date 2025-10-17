@@ -34,7 +34,7 @@ nmcli connection modify "HotSpot" 802-11-wireless.mode ap 802-11-wireless.band a
 nmcli connection modify "HotSpot" connection.autoconnect-priority -5
 
 ##################
-sudo --preserve-env bash -c ' cat > /etc/NetworkManager/conf.d/wifi-enable-autohotspot.conf' <<- EOF
+sudo --preserve-env bash -c ' cat > /etc/NetworkManager/conf.d/wifi-enable-autohotspot.conf' << EOF
 [connection-wifi]
 match-device=interface-name:wlan0
 ipv4.dhcp-timeout=30
@@ -47,7 +47,7 @@ EOF
 
 # This will make sure /etc/network/interfaces does not interfere
 ##################
-sudo --preserve-env bash -c 'cat > /etc/network/interfaces' <<- EOF
+sudo --preserve-env bash -c 'cat > /etc/network/interfaces' << EOF
 # interfaces(5) file used by ifup(8) and ifdown(8)
 # Include files from /etc/network/interfaces.d:
 source /etc/network/interfaces.d/*
