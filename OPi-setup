@@ -87,7 +87,7 @@ sudo apt -y install x11vnc
 sudo x11vnc -storepasswd /etc/x11vnc.pass
 
 ######################
-sudo --preserve-env bash -c 'cat > /lib/systemd/system/x11vnc.service' <<- EOF
+sudo --preserve-env bash -c 'cat > /lib/systemd/system/x11vnc.service' << EOF
 [Unit]
 Description=Start x11vnc at startup.
 After=multi-user.target
@@ -151,7 +151,7 @@ echo "Installing INDI web manager"
 sudo pip3 install indiweb
 
 ######################
-sudo --preserve-env bash -c 'cat > /etc/systemd/system/indiwebmanager.service' <<- EOF
+sudo --preserve-env bash -c 'cat > /etc/systemd/system/indiwebmanager.service' << EOF
 [Unit]
 Description=INDI Web Manager
 After=multi-user.target
