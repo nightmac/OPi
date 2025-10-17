@@ -51,26 +51,26 @@ then
 ##################
 sudo --preserve-env bash -c 'cat > /etc/samba/smb.conf' <<- EOF
 [global]
-   workgroup = WORKGROUP
-   server string = Samba Server
-   server role = standalone server
-   obey pam restrictions = yes
-   unix password sync = yes
-   log file = /var/log/samba/log.%m
-   max log size = 50
-   passwd program = /usr/bin/passwd %u
-   passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
-   pam password change = yes
-   map to guest = bad user
-   usershare allow guests = yes
-   fruit:copyfile = yes
+	workgroup = WORKGROUP
+	server string = Samba Server
+	server role = standalone server
+	obey pam restrictions = yes
+	unix password sync = yes
+	log file = /var/log/samba/log.%m
+	max log size = 50
+	passwd program = /usr/bin/passwd %u
+	passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+	pam password change = yes
+	map to guest = bad user
+	usershare allow guests = yes
+	fruit:copyfile = yes
 [$SUDO_USER]
-   comment = $SUDO_USER Home
-   path = /home/$SUDO_USER
-   browseable = yes
-   writeable = yes
-   read only = no
-   valid users = $SUDO_USER
+	comment = $SUDO_USER Home
+	path = /home/$SUDO_USER
+	browseable = yes
+	writeable = yes
+	read only = no
+	valid users = $SUDO_USER
 EOF
 ##################
 fi
