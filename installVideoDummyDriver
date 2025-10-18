@@ -37,15 +37,15 @@ sudo apt -y install xserver-xorg-video-dummy
 ##################
 sudo --preserve-env bash -c 'cat > /etc/X11/xorg.conf.d/10-videodummy.conf' << EOF
 Section "Monitor"
-	Identifier "Monitor0"
-	HorizSync 22 - 83
-	VertRefresh 50 - 76
-	Modeline "1440x900" 106.47 1440 1520 1672 1904 900 901 904 932 -HSync +Vsync
-	Modeline "1920x1080" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
+    Identifier "Monitor0"
+    HorizSync 22 - 83
+    VertRefresh 50 - 76
+    Modeline "1440x900" 106.47 1440 1520 1672 1904 900 901 904 932 -HSync +Vsync
+    Modeline "1920x1080" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
 EndSection
 
 Section "Device"
-	Identifier "Card0"
+    Identifier "Card0"
     Option "NoDDC" "true"
     Option "IgnoreEDID" "true"
     Driver "dummy"
@@ -58,7 +58,7 @@ Section "Screen"
     Monitor "Monitor0"
     DefaultDepth 24
     SubSection "Display"
-		Depth 24
+        Depth 24
         Modes "1440x900" "1920x1080"
     EndSubSection
 EndSection
