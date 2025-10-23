@@ -9,9 +9,8 @@ if [ "$(whoami)" != "root" ]; then
 	exit 1
 fi
 
-
-echo "Setting up Ethernet for both DHCP and link-local"
 # This will make sure that network manager can manage whether the ethernet connection is on or off.
+echo "Setting up Ethernet for both DHCP and link-local"
 if [ -n "$(grep 'managed=false' /etc/NetworkManager/NetworkManager.conf)" ]
 then
 	sed -i "s/managed=false/managed=true/g" /etc/NetworkManager/NetworkManager.conf
@@ -26,6 +25,15 @@ nmcli connection modify "Ethernet" connection.auth-retries 2
 
 nmcli connection add type ethernet ifname enP3p49s0 con-name "Link-Local" autoconnect yes ip4 10.0.0.60/24
 nmcli connection modify "Link-Local" connection.autoconnect-priority 1
+
+
+echo "Turning off Wi-Fi Power Management"
+##################
+sudo --preserve-env bash -c 'cat > /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf' <<- EOF
+[connection]
+wifi.powersave = 2
+EOF
+##################
 
 
 echo "Setting up Wi-Fi Hotspot"
