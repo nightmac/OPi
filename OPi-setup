@@ -180,10 +180,6 @@ sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
 sudo apt -y install python3-indi-client
 
 
-echo "Installing Astronomy.net"
-sudo apt -y install astrometry.net
-
-
 echo "Installing INDI web manager"
 sudo pip3 install indiweb
 
