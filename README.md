@@ -31,6 +31,6 @@
 
 `git clone https://github.com/nightmac/opi && cd opi`
 
-`chmod +x OPi-setup`
+`chmod +x opi-setup`
 
-`sudo ./OPi-setup`
+`sudo ./opi-setup`
