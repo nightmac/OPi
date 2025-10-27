@@ -6,8 +6,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
-#zstyle ':omz:update' mode auto
-zstyle ':omz:*' aliases no
+zstyle ':omz:update' mode auto
 
 source $ZSH/oh-my-zsh.sh
 
