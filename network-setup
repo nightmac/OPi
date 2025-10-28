@@ -27,13 +27,15 @@ nmcli connection add type ethernet ifname enP3p49s0 con-name "Link-Local" autoco
 nmcli connection modify "Link-Local" connection.autoconnect-priority 1
 
 
+
 echo "Turning off Wi-Fi Power Management"
 ##################
-sudo --preserve-env bash -c 'cat > /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf' <<- EOF
+sudo --preserve-env bash -c 'cat > /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf' << EOF
 [connection]
 wifi.powersave = 2
 EOF
 ##################
+
 
 
 echo "Setting up Wi-Fi Hotspot"
@@ -42,7 +44,7 @@ nmcli connection modify "HotSpot" 802-11-wireless.mode ap 802-11-wireless.band a
 nmcli connection modify "HotSpot" connection.autoconnect-priority -5
 
 ##################
-sudo --preserve-env bash -c ' cat > /etc/NetworkManager/conf.d/wifi-enable-autohotspot.conf' << EOF
+sudo --preserve-env bash -c 'cat > /etc/NetworkManager/conf.d/wifi-enable-autohotspot.conf' << EOF
 [connection-wifi]
 match-device=interface-name:wlan0
 ipv4.dhcp-timeout=30
@@ -51,6 +53,7 @@ connection.auth-retries=2
 connection.autoconnect-retries=2
 EOF
 ##################
+
 
 
 # This will make sure /etc/network/interfaces does not interfere
@@ -65,6 +68,25 @@ auto lo
 iface lo inet loopback
 EOF
 ##################
+
+
+
+echo "Disabling Energy Efficient Ethernet"
+##################
+sudo --preserve-env bash -c 'cat > /etc/systemd/system/disable-eee.service' << EOF
+[Unit]
+Description=Disable Energy Efficient Ethernet
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/ethtool --set-eee enP3p49s0 eee off
+
+[Install]
+WantedBy=multi-user.target
+EOF
+##################
+
 
 
 # Uncomment next lines to install realtek RTL8156 (r8152) USB 2.5G ethernet driver 
