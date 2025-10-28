@@ -84,7 +84,7 @@ fi
 
 
 echo "Installing x11vnc"
-sudo apt -y install x11vnc
+sudo apt -y install x11vnc x11-utils
 sudo x11vnc -storepasswd /etc/x11vnc.pass
 
 ######################
