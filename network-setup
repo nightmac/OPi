@@ -67,25 +67,25 @@ EOF
 ##################
 
 
-echo "Disabling Energy Efficient Ethernet"
+#echo "Disabling Energy Efficient Ethernet"
 ##################
-sudo --preserve-env bash -c 'cat > /etc/systemd/system/disable-eee.service' << EOF
-[Unit]
-Description=Disable Energy Efficient Ethernet
-After=network.target
+#sudo --preserve-env bash -c 'cat > /etc/systemd/system/disable-eee.service' << EOF
+#[Unit]
+#Description=Disable Energy Efficient Ethernet
+#After=network.target
 
-[Service]
-Type=oneshot
-ExecStart=/usr/sbin/ethtool --set-eee enP3p49s0 eee off
+#[Service]
+#Type=oneshot
+#ExecStart=/usr/sbin/ethtool --set-eee enP3p49s0 eee off
 
-[Install]
-WantedBy=multi-user.target
-EOF
+#[Install]
+#WantedBy=multi-user.target
+#EOF
 ##################
 
-sudo systemctl daemon-reload
-sudo systemctl enable disable-eee.service
-sudo systemctl start disable-eee.service
+#sudo systemctl daemon-reload
+#sudo systemctl enable disable-eee.service
+#sudo systemctl start disable-eee.service
 
 
 # Uncomment next lines to install realtek RTL8156 (r8152) USB 2.5G ethernet driver 
