@@ -76,7 +76,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/sbin/ethtool --set-eee enP3p49s0 eee off
+ExecStart=/usr/sbin/ethtool --set-eee enP3p49s0 eee off
 
 [Install]
 WantedBy=multi-user.target
