@@ -27,7 +27,6 @@ nmcli connection add type ethernet ifname enP3p49s0 con-name "Link-Local" autoco
 nmcli connection modify "Link-Local" connection.autoconnect-priority 1
 
 
-
 echo "Turning off Wi-Fi Power Management"
 ##################
 sudo --preserve-env bash -c 'cat > /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf' << EOF
@@ -35,7 +34,6 @@ sudo --preserve-env bash -c 'cat > /etc/NetworkManager/conf.d/default-wifi-power
 wifi.powersave = 2
 EOF
 ##################
-
 
 
 echo "Setting up Wi-Fi Hotspot"
@@ -55,7 +53,6 @@ EOF
 ##################
 
 
-
 # This will make sure /etc/network/interfaces does not interfere
 ##################
 sudo --preserve-env bash -c 'cat > /etc/network/interfaces' << EOF
@@ -68,7 +65,6 @@ auto lo
 iface lo inet loopback
 EOF
 ##################
-
 
 
 echo "Disabling Energy Efficient Ethernet"
@@ -87,6 +83,8 @@ WantedBy=multi-user.target
 EOF
 ##################
 
+sudo systemctl enable disable-eee.service
+sudo systemctl start disable-eee.service
 
 
 # Uncomment next lines to install realtek RTL8156 (r8152) USB 2.5G ethernet driver 
