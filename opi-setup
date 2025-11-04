@@ -14,14 +14,24 @@ sudo apt -y full-upgrade
 sudo apt -y purge unattended-upgrades
 
 
-echo "Installing Synaptic"
+sudo usermod -a -G dialout $SUDO_USER
+sudo apt -y remove brltty
+sudo apt -y remove modemmanager
 sudo apt -y install synaptic software-properties-common
+sudo apt -y install avahi-daemon
+sudo apt -y install libnss-mdns
+sudo apt -y install iperf3
+sudo apt -y install xfce4-goodies indicator-multiload
+sudo apt -y install gnome-keyring
+sudo apt -y install breeze-icon-theme
+
 
 
 echo "Installing Flatpak"
 sudo apt -y install flatpak
 sudo apt -y install gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
 
 
 echo "Installing Oh-my-zsh & zshrc file"
@@ -31,16 +41,6 @@ chsh -s $(which zsh)
 cp "$DIR/zshrc" $USERHOME/.zshrc
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
-
-sudo usermod -a -G dialout $SUDO_USER
-sudo apt -y remove brltty
-sudo apt -y remove modemmanager
-sudo apt -y install avahi-daemon
-sudo apt -y install libnss-mdns
-sudo apt -y install iperf3
-sudo apt -y install xfce4-goodies indicator-multiload
-sudo apt -y install gnome-keyring
-sudo apt -y install breeze-icon-theme
 
 
 echo "Setting up File Sharing"
@@ -84,6 +84,7 @@ then
 fi
 
 
+
 echo "Installing x11vnc"
 sudo apt -y install x11vnc x11-utils
 sudo x11vnc -storepasswd /etc/x11vnc.pass
@@ -106,6 +107,7 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable x11vnc.service
 sudo systemctl start x11vnc.service
+
 
 
 echo "Install xserver Video dummy driver"
@@ -143,6 +145,7 @@ EOF
 ##################
 
 
+
 echo "Installing python3"
 sudo apt -y install python3-pip
 sudo apt -y install python3-dev
@@ -152,12 +155,15 @@ sudo pip3 install setuptools --upgrade
 sudo pip3 install wheel
 
 
+
 echo "Installing iPhone USB Tethering"
 sudo apt -y install ipheth-utils usbmuxd libimobiledevice-dev libimobiledevice-utils
 
 
+
 echo "Installing VirtualHere USB Server"
 curl https://raw.githubusercontent.com/virtualhere/script/main/install_server | sudo sh
+
 
 
 echo "Installing uhubctl USB power control"
@@ -165,6 +171,7 @@ sudo apt -y install libusb-1.0-0-dev pkgconf
 git clone https://github.com/mvp/uhubctl && cd uhubctl
 make && sudo make install
 cd ../
+
 
 
 echo "Installing INDI and KStars"
@@ -175,9 +182,11 @@ wget https://raw.githubusercontent.com/ikarustechnologies/indi-firmware/main/kst
 bash kstars.sh
 
 
+
 echo "Installing pyindi-client"
 sudo apt -y install libindi-dev swig libcfitsio-dev libnova-dev
 sudo apt -y install python3-indi-client
+
 
 
 echo "Installing INDI web manager"
@@ -207,10 +216,12 @@ sudo systemctl enable indiwebmanager.service
 sudo systemctl start indiwebmanager.service
 
 
+
 echo "Installing PHD2"
 sudo apt-add-repository ppa:pch/phd2 -y
 sudo apt update
 sudo apt -y install phd2 phdlogview
+
 
 
 echo "Installing Indigo"
