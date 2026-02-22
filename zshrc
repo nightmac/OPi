@@ -16,7 +16,7 @@ else
   export EDITOR='nano'
 fi
 
-cd() { builtin cd "$@"; ls -lah --color=auto; }
+cd() { builtin cd "$@" && ls -lah --color=auto; }
 
 alias ..='cd ../'
 alias ...='cd ../../'
