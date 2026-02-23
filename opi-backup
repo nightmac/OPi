@@ -1,18 +1,27 @@
 #!/bin/bash
 
-OFFSET=30
+OFFSET=32
 image=/mnt/backup.img
 type=83
 next=$OFFSET
 rootpart=1
+overlaypart=2
 ROOTFS_TYPE=ext4
+OVERLAYFS_TYPE=ext4
 bootfs=
 logfile="/var/log/backup.log"
+OVERLAYFS_SIZE=256
+USE_OVERLAYFS=0
+
 # script configuration
 CWD="/usr/lib/nand-sata-install"
 EX_LIST="${CWD}/exclude.txt"
 [[ -f /usr/lib/u-boot/platform_install.sh ]] && source /usr/lib/u-boot/platform_install.sh
 [[ -f /etc/orangepi-release ]] && source /etc/orangepi-release
+
+if [[ "$1" == "overlayfs" ]]; then
+	USE_OVERLAYFS=1
+fi
 
 if [[ $EUID -ne 0 ]]; then
 	echo 'This tool must run as root. Exiting ...' >&2
@@ -87,7 +96,13 @@ rootfs_size=$(df -BM | grep ^/dev | head -1 | awk '{print $3}' | tr -cd '[0-9]. 
 display_alert "Current rootfs size" "$rootfs_size MiB" "info"
 
 imagesize=$(($rootfs_size + $OFFSET))
+
 sdsize=$(bc -l <<< "scale=0; ((($imagesize * 1.35) / 1 + 0) / 4 + 1) * 4")
+
+if [[ $USE_OVERLAYFS -eq 1 ]]; then
+	display_alert "Overlayfs size" "${OVERLAYFS_SIZE}MB" "info"
+	sdsize=$(($sdsize + $OVERLAYFS_SIZE))
+fi
 
 mnt_free=$(df -BM /mnt | grep ^/dev | head -1 | awk '{print $4}' | tr -cd '[0-9]. \n')
 
@@ -105,20 +120,29 @@ cleanup() {
 		losetup -d $LOOP
 	fi
 
-	[[ -d "${TempDir}" ]] && rm "${TempDir}"
+	[[ -d "${TempDir}" ]] && rm -r "${TempDir}"
 
 	exit
 }
 
 trap cleanup EXIT INT
-
 display_alert "Creating blank image for rootfs" "$sdsize MiB" "info"
 dd if=/dev/zero bs=1M status=none count=$sdsize | pv -p -b -r -s $(($sdsize * 1024 * 1024)) -N "[ .... ] dd" | dd status=none of=$image
 
+if [[ $USE_OVERLAYFS -eq 1 ]]; then
+	rootfs_size=$(($sdsize - $OVERLAYFS_SIZE - $OFFSET))
+	overlay_start=$(($next + $rootfs_size))
+	display_alert "Creating partitions" "root: $ROOTFS_TYPE, overlay: $OVERLAYFS_TYPE" "info"
+	{
+		echo "$rootpart : name=\"rootfs\", start=${next}MiB, size=${rootfs_size}MiB, type=${type}"
+		echo "$overlaypart : name=\"overlayfs\", start=${overlay_start}MiB, size=${OVERLAYFS_SIZE}MiB, type=${type}"
+	} | sfdisk $image >> "$logfile" 2>&1
+else
 display_alert "Creating partitions" "${bootfs:+/boot: $bootfs }root: $ROOTFS_TYPE" "info"
 {
 	echo "$rootpart : name=\"rootfs\", start=${next}MiB, type=${type}"
 } | sfdisk $image >> "$logfile" 2>&1
+fi
 
 LOOP=$(losetup -fP --show $image)
 rootdevice="${LOOP}p${rootpart}"
@@ -128,6 +152,12 @@ display_alert "Creating rootfs" "$ROOTFS_TYPE on $rootdevice"
 mkfs.ext4 -q -m 2 -O '^64bit,^metadata_csum' -L opi_root $rootdevice
 
 [[ $ROOTFS_TYPE == ext4 ]] && tune2fs -o journal_data_writeback $rootdevice > /dev/null
+
+if [[ $USE_OVERLAYFS -eq 1 ]]; then
+	overlaydevice="${LOOP}p${overlaypart}"
+	display_alert "Creating overlayfs" "$OVERLAYFS_TYPE on $overlaydevice"
+	mkfs.ext4 -q -m 0 -O '^64bit,^metadata_csum' -L opi_overlay $overlaydevice
+fi
 
 TempDir=$(mktemp -d /mnt/${0##*/}.XXXXXX || exit 2)
 
@@ -218,6 +248,11 @@ rsync -avrltD --delete --exclude-from=$EX_LIST / "${TempDir}"/rootfs >/dev/null 
 
 display_alert "Re-enabling" "orangepi-resize-filesystem"
 chroot ${TempDir}/rootfs/ /bin/bash -c "systemctl --quiet enable orangepi-resize-filesystem" 2>&1 > /dev/null
+
+if [[ $USE_OVERLAYFS -eq 1 ]]; then
+	display_alert "Enabling" "setup-overlay"
+	chroot ${TempDir}/rootfs/ /bin/bash -c "systemctl --quiet enable setup-overlay" 2>&1 > /dev/null
+fi
 
 rm -f "${TempDir}"/rootfs/etc/fstab
 # Restore TMP and swap
