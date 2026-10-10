@@ -177,7 +177,7 @@ cd ../
 echo "Installing INDI and KStars"
 sudo apt-add-repository ppa:mutlaqja/ppa -y
 sudo apt update
-sudo apt -y install indi-full
+#sudo apt -y install indi-full
 wget https://raw.githubusercontent.com/ikarustechnologies/indi-firmware/main/kstars.sh
 bash kstars.sh
 
@@ -202,7 +202,7 @@ After=multi-user.target
 Type=idle
 # MUST SET YOUR USERNAME HERE.
 User=$SUDO_USER
-ExecStart=/usr/local/bin/indi-web -v
+ExecStart=/usr/local/bin/indi-web -v --xmldir /$USERHOME/.local/share/flatpak/app/org.kde.kstars/aarch64/stable/active/files/share/indi/
 Restart=always
 RestartSec=5
 
