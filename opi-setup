@@ -177,9 +177,9 @@ cd ../
 echo "Installing INDI and KStars"
 sudo apt-add-repository ppa:mutlaqja/ppa -y
 sudo apt update
-#sudo apt -y install indi-full
 wget https://raw.githubusercontent.com/ikarustechnologies/indi-firmware/main/kstars.sh
 bash kstars.sh
+git clone https://gitea.nouspiro.space/nou/astro-soft-build.git
 
 
 
@@ -227,8 +227,8 @@ sudo apt -y install phd2 phdlogview
 echo "Installing Indigo"
 sudo sh -c "echo 'deb [trusted=yes] https://indigo-astronomy.github.io/indigo_ppa/ppa indigo main' > /etc/apt/sources.list.d/indigo.list"
 sudo apt update
-sudo apt -y install indigo
-sudo apt -y install ain-imager
-sudo apt -y install indigo-control-panel
+sudo apt -y install indigo3
+sudo apt -y install ain-imager-indigo3
+sudo apt -y install indigo-control-panel-indigo3
 
 
